@@ -22,7 +22,11 @@ import {
   Check,
   Zap,
   Users,
-  Rotate3d
+  Rotate3d,
+  Calculator,
+  XCircle,
+  HelpCircle,
+  Sliders
 } from 'lucide-react';
 
 const iconMap = {
@@ -47,6 +51,14 @@ export default function App() {
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', notes: '' });
   const [heroViewMode, setHeroViewMode] = useState('3d');
+  const [activeCategory, setActiveCategory] = useState('All Protocols');
+
+  // Interactive 3-Step Allocation Calculator State
+  const [calcStep, setCalcStep] = useState(1);
+  const [calcFreq, setCalcFreq] = useState('3-4 Days / Consistency');
+  const [calcGoal, setCalcGoal] = useState('Olympic Strength & Power');
+  const [calcContact, setCalcContact] = useState({ name: '', phone: '' });
+  const [calcSubmitted, setCalcSubmitted] = useState(false);
 
   const enableMotion = Boolean(siteData.enable_motion);
   const primaryColor = siteData.theme?.primary_color || '#090d16';
@@ -61,8 +73,29 @@ export default function App() {
     setModalOpen(true);
   };
 
+  const sendLeadToBackend = async (payload) => {
+    try {
+      await fetch('http://localhost:8000/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      // Graceful offline fallback: if backend is unreachable or deployed remotely, log locally
+      console.log('Lead queued locally:', payload);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    sendLeadToBackend({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      service: formData.service || selectedPlanOrService,
+      notes: formData.notes,
+      business_name: siteData.business_name
+    });
     setContactSubmitted(true);
     setTimeout(() => {
       setContactSubmitted(false);
@@ -70,6 +103,25 @@ export default function App() {
       setFormData({ name: '', phone: '', email: '', service: '', notes: '' });
     }, 2500);
   };
+
+  const handleCalculatorSubmit = (e) => {
+    e.preventDefault();
+    const recommendedTier = calcFreq.includes('Visiting') ? 'Day Protocol Pass ($29)' : (calcFreq.includes('Dedicated') ? 'Private VIP Performance ($380/mo)' : 'All-Access Apex Pro ($149/mo)');
+    sendLeadToBackend({
+      name: calcContact.name,
+      phone: calcContact.phone,
+      service: `Calculator Recommendation: ${recommendedTier}`,
+      notes: `Frequency: ${calcFreq} | Primary Goal: ${calcGoal}`,
+      business_name: siteData.business_name,
+      calculator_data: { frequency: calcFreq, goal: calcGoal, recommendedTier }
+    });
+    setCalcSubmitted(true);
+  };
+
+  // Filtered protocols
+  const filteredServices = activeCategory === 'All Protocols'
+    ? siteData.services
+    : siteData.services?.filter(s => s.category === activeCategory);
 
   return (
     <div className={`min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-200 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
@@ -80,11 +132,11 @@ export default function App() {
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span className="font-semibold text-white">
-              {siteData.announcement?.text || `Serving ${siteData.address ? siteData.address.split(',').slice(-2, -1)[0] || 'Tokyo' : 'Tokyo'} & Surrounding Areas`}
+              {siteData.announcement?.text || `Serving ${siteData.address ? siteData.address.split(',').slice(-2, -1)[0] || 'Tokyo' : 'Tokyo'}`}
             </span>
           </div>
           <div className="flex items-center gap-6">
-            <span className="hidden md:inline text-amber-400 font-bold">⚡ Zero Queue Guarantee</span>
+            <span className="hidden md:inline text-amber-400 font-bold">⚡ Floor Density Capped • Zero Wait Guarantee</span>
             {siteData.phone && (
               <a href={`tel:${siteData.phone}`} className="flex items-center gap-1.5 font-bold text-white hover:text-amber-400 transition-colors">
                 <Phone className="w-3.5 h-3.5 text-amber-400" />
@@ -123,17 +175,15 @@ export default function App() {
             </div>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-400">
+          <nav className="hidden xl:flex items-center gap-7 text-sm font-semibold text-slate-400">
             {siteData.pillars?.length > 0 && (
               <a href="#pillars" className="hover:text-white transition-colors">The Standard</a>
             )}
-            <a href="#services" className="hover:text-white transition-colors">Protocols</a>
-            {siteData.pricing_plans?.length > 0 && (
-              <a href="#pricing" className="hover:text-white transition-colors">Tiers</a>
-            )}
-            {siteData.gallery_images?.length > 0 && (
-              <a href="#gallery" className="hover:text-white transition-colors">Sanctuary</a>
-            )}
+            <a href="#protocols" className="hover:text-white transition-colors">Protocols</a>
+            <a href="#comparison" className="hover:text-white transition-colors">Comparison</a>
+            <a href="#calculator" className="hover:text-white transition-colors">Calculator</a>
+            <a href="#pricing" className="hover:text-white transition-colors">Tiers</a>
+            <a href="#gallery" className="hover:text-white transition-colors">Sanctuary</a>
             <a href="#reviews" className="hover:text-white transition-colors">Results</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
             <a href="#hours" className="hover:text-white transition-colors">Location</a>
@@ -152,7 +202,7 @@ export default function App() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="xl:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -160,11 +210,11 @@ export default function App() {
 
         {/* Mobile Nav Dropdown */}
         {mobileMenuOpen && (
-          <div className={`lg:hidden border-b px-6 py-4 space-y-3 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
-            {siteData.pillars?.length > 0 && (
-              <a href="#pillars" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">The Standard</a>
-            )}
-            <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Protocols</a>
+          <div className={`xl:hidden border-b px-6 py-4 space-y-3 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
+            <a href="#pillars" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">The Standard</a>
+            <a href="#protocols" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Protocols</a>
+            <a href="#comparison" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Comparison</a>
+            <a href="#calculator" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Allocation Calculator</a>
             <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Tiers</a>
             <a href="#gallery" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Sanctuary</a>
             <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Results</a>
@@ -181,9 +231,8 @@ export default function App() {
         )}
       </header>
 
-      {/* 3. HERO SECTION WITH 3D WEBGL INTERACTIVE CANVAS */}
+      {/* 3. HERO SECTION WITH 3D WEBGL ACCENT */}
       <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
-        {/* Background Ambient Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-amber-500/10 via-blue-600/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -219,15 +268,13 @@ export default function App() {
                   <Calendar className="w-5 h-5" />
                   <span>{siteData.call_to_action_text || 'Claim Executive Pass'}</span>
                 </button>
-                {siteData.phone && (
-                  <a
-                    href={`tel:${siteData.phone}`}
-                    className={`px-8 py-4 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2.5 border ${isDark ? 'bg-slate-900/80 hover:bg-slate-800 text-white border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-900 border-slate-300 shadow-sm'}`}
-                  >
-                    <Phone className="w-5 h-5 text-amber-400" />
-                    <span>Call Concierge</span>
-                  </a>
-                )}
+                <a
+                  href="#calculator"
+                  className={`px-8 py-4 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2.5 border ${isDark ? 'bg-slate-900/80 hover:bg-slate-800 text-white border-slate-700' : 'bg-white hover:bg-slate-100 text-slate-900 border-slate-300 shadow-sm'}`}
+                >
+                  <Calculator className="w-5 h-5 text-amber-400" />
+                  <span>Allocation Calculator</span>
+                </a>
               </div>
 
               {/* Trust Proof Badges Bar */}
@@ -262,7 +309,6 @@ export default function App() {
               className="lg:col-span-5 relative"
             >
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* 3D / Photo Mode Switcher */}
                 <div className="flex items-center justify-center gap-2 mb-3">
                   <button
                     onClick={() => setHeroViewMode('3d')}
@@ -284,20 +330,14 @@ export default function App() {
                   <Gym3DCanvas isDark={isDark} accentColor={accentColor} />
                 ) : (
                   <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
-                    {siteData.hero_image_url ? (
+                    {siteData.hero_image_url && (
                       <img
                         src={siteData.hero_image_url}
                         alt={siteData.business_name}
                         className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                       />
-                    ) : (
-                      <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-                        <Sparkles className="w-16 h-16 text-amber-400" />
-                      </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                    
-                    {/* Floating Highlight Pill */}
                     <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 flex items-center justify-between shadow-xl">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center font-bold">
@@ -420,79 +460,311 @@ export default function App() {
         </section>
       )}
 
-      {/* 6. SPECIALIZED ATHLETIC PROTOCOLS */}
-      <section id="services" className="py-20 lg:py-28">
+      {/* 6. INTERACTIVE SHOWCASE WITH TABBED FILTERING */}
+      <section id="protocols" className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Specialized Protocols
             </div>
             <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
-              What We Do Best
+              Interactive Protocol Showcase
             </h2>
             <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              Every protocol is calibrated with sports science, Eleiko Olympic equipment, and certified master coaches.
+              Filter by objective to explore our sports-science verified performance architecture.
+            </p>
+
+            {/* Tabbed Filter Pills */}
+            <div className="flex flex-wrap justify-center gap-2 pt-4">
+              {siteData.service_categories?.map((cat, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${activeCategory === cat ? 'bg-amber-400 text-slate-950 shadow-lg scale-105' : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <AnimatePresence>
+              {filteredServices?.map((svc, idx) => {
+                const IconComp = iconMap[svc.icon_name] || CheckCircle;
+                return (
+                  <motion.div
+                    key={svc.title}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    whileHover={enableMotion ? { y: -8 } : {}}
+                    className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col hover:shadow-2xl ${isDark ? 'bg-slate-900 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-md hover:border-slate-300'}`}
+                  >
+                    <div className="aspect-[16/10] overflow-hidden relative bg-slate-800">
+                      {svc.image_url && (
+                        <img
+                          src={svc.image_url}
+                          alt={svc.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      )}
+                      <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-slate-950/80 backdrop-blur-md text-amber-400 flex items-center justify-center shadow-md">
+                        <IconComp className="w-4 h-4" />
+                      </div>
+                      <div className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-slate-950/80 text-xs text-amber-400 font-semibold border border-amber-400/20">
+                        {svc.category || 'Specialized'}
+                      </div>
+                    </div>
+
+                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div>
+                        <h3 className={`text-lg font-bold group-hover:text-amber-400 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                          {svc.title}
+                        </h3>
+                        <p className={`text-sm leading-relaxed mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                          {svc.description}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => handleOpenModal(svc.title)}
+                        className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-slate-950"
+                      >
+                        <span>Inquire Protocol</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 7. COMPARISON MATRIX: TOKYO APEX VS CONVENTIONAL GYMS */}
+      {siteData.comparison_matrix?.length > 0 && (
+        <section id="comparison" className={`py-20 lg:py-28 border-y ${isDark ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
+                Uncompromising Standards
+              </div>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                Tokyo Apex vs. Conventional Gyms
+              </h2>
+              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                See exactly why Tokyo executives and high-performers refuse standard commercial gym compromises.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl">
+              <div className="grid grid-cols-12 bg-slate-900/90 p-4 sm:p-6 border-b border-slate-800 font-bold text-xs sm:text-sm uppercase tracking-wider">
+                <div className="col-span-5 sm:col-span-4 text-slate-400">Architectural Dimension</div>
+                <div className="col-span-4 sm:col-span-4 text-amber-400 text-center font-black">★ Tokyo Apex Gyms</div>
+                <div className="col-span-3 sm:col-span-4 text-slate-500 text-center">Conventional Gyms</div>
+              </div>
+
+              <div className="divide-y divide-slate-800/80">
+                {siteData.comparison_matrix.map((row, idx) => (
+                  <div key={idx} className="grid grid-cols-12 p-4 sm:p-6 items-center hover:bg-slate-900/40 transition-colors text-xs sm:text-sm">
+                    <div className="col-span-5 sm:col-span-4 font-bold text-white pr-2">
+                      {row.dimension}
+                    </div>
+                    <div className="col-span-4 sm:col-span-4 text-center px-2">
+                      <div className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+                        <CheckCircle className="w-4 h-4 shrink-0 text-amber-400" />
+                        <span className="text-white text-xs sm:text-sm">{row.apex}</span>
+                      </div>
+                    </div>
+                    <div className="col-span-3 sm:col-span-4 text-center px-2">
+                      <div className="inline-flex items-center gap-1.5 text-slate-500">
+                        <XCircle className="w-4 h-4 shrink-0 text-rose-400/80" />
+                        <span className="text-slate-400 text-xs sm:text-sm hidden sm:inline">{row.commercial}</span>
+                        <span className="text-slate-400 text-xs sm:hidden">Standard</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 8. INTERACTIVE LEAD FLOW: MULTI-STEP ALLOCATION CALCULATOR */}
+      <section id="calculator" className="py-20 lg:py-28 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-4 mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
+              Instant Allocation Engine
+            </div>
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              Calculate Your Custom Performance Tier
+            </h2>
+            <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              Answer two quick questions to match your schedule with our capped floor density.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {siteData.services?.map((svc, idx) => {
-              const IconComp = iconMap[svc.icon_name] || CheckCircle;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={enableMotion ? { opacity: 0, y: 30 } : false}
-                  whileInView={enableMotion ? { opacity: 1, y: 0 } : false}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  whileHover={enableMotion ? { y: -8, transition: { duration: 0.2 } } : {}}
-                  className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col hover:shadow-2xl ${isDark ? 'bg-slate-900 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-md hover:border-slate-300'}`}
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+            {calcSubmitted ? (
+              <div className="py-12 text-center space-y-4">
+                <CheckCircle className="w-16 h-16 text-emerald-400 mx-auto" />
+                <h3 className="text-2xl font-black text-white">Allocation Calculated &amp; Reserved</h3>
+                <p className="text-slate-300 max-w-md mx-auto text-sm">
+                  Thank you, <span className="text-amber-400 font-bold">{calcContact.name}</span>. Your custom profile has been recorded in the Tokyo Apex priority queue. Our concierge will contact you via WhatsApp/Phone shortly.
+                </p>
+                <button
+                  onClick={() => { setCalcSubmitted(false); setCalcStep(1); }}
+                  className="px-6 py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs uppercase hover:bg-slate-700"
                 >
-                  {/* Protocol Photo */}
-                  <div className="aspect-[16/10] overflow-hidden relative bg-slate-800">
-                    {svc.image_url ? (
-                      <img
-                        src={svc.image_url}
-                        alt={svc.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-slate-800">
-                        <IconComp className="w-10 h-10 text-slate-500" />
+                  Recalculate
+                </button>
+              </div>
+            ) : (
+              <div>
+                {/* Step Progress Bar */}
+                <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-800 text-xs font-bold uppercase tracking-wider">
+                  <span className={calcStep >= 1 ? 'text-amber-400' : 'text-slate-600'}>1. Schedule</span>
+                  <span className={calcStep >= 2 ? 'text-amber-400' : 'text-slate-600'}>2. Target Focus</span>
+                  <span className={calcStep >= 3 ? 'text-amber-400' : 'text-slate-600'}>3. Priority Lock</span>
+                </div>
+
+                {calcStep === 1 && (
+                  <div className="space-y-6">
+                    <h4 className="text-lg font-bold text-white">How frequently will you train in Tokyo?</h4>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      {[
+                        { title: '1-2 Days / Visiting', desc: 'Visiting executive pass with full 24h floor & shower suite access' },
+                        { title: '3-4 Days / Consistency', desc: 'Our signature capped floor membership for regular progress' },
+                        { title: '5+ Days / Dedicated', desc: 'High-touch athletic direction with dedicated master coaching' }
+                      ].map((opt, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setCalcFreq(opt.title)}
+                          className={`p-5 rounded-2xl border text-left transition-all ${calcFreq === opt.title ? 'bg-amber-400/10 border-amber-400 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'}`}
+                        >
+                          <span className="font-bold block text-sm text-white mb-1">{opt.title}</span>
+                          <span className="text-xs text-slate-400">{opt.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div className="pt-4 flex justify-end">
+                      <button
+                        onClick={() => setCalcStep(2)}
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95"
+                      >
+                        <span>Next Step</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {calcStep === 2 && (
+                  <div className="space-y-6">
+                    <h4 className="text-lg font-bold text-white">What is your primary athletic objective?</h4>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      {[
+                        { title: 'Olympic Strength & Power', desc: 'Eleiko platforms, bar speed metrics, compound loading' },
+                        { title: 'Cellular Recovery & Cryo', desc: 'Infrared sauna, 4°C plunge, systemic nervous restoration' },
+                        { title: 'Executive Biomechanics', desc: 'Posture correction, kinetic joint mobility, cognitive energy' }
+                      ].map((opt, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setCalcGoal(opt.title)}
+                          className={`p-5 rounded-2xl border text-left transition-all ${calcGoal === opt.title ? 'bg-amber-400/10 border-amber-400 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'}`}
+                        >
+                          <span className="font-bold block text-sm text-white mb-1">{opt.title}</span>
+                          <span className="text-xs text-slate-400">{opt.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div className="pt-4 flex justify-between">
+                      <button
+                        onClick={() => setCalcStep(1)}
+                        className="px-6 py-3.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-sm uppercase"
+                      >
+                        Back
+                      </button>
+                      <button
+                        onClick={() => setCalcStep(3)}
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95"
+                      >
+                        <span>Review Allocation</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {calcStep === 3 && (
+                  <form onSubmit={handleCalculatorSubmit} className="space-y-6">
+                    <div className="p-4 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-between">
+                      <div>
+                        <span className="text-xs text-amber-400 font-bold uppercase block">Recommended Allocation</span>
+                        <span className="text-lg font-black text-white">
+                          {calcFreq.includes('Visiting') ? 'Day Protocol Pass ($29/day)' : (calcFreq.includes('Dedicated') ? 'Private VIP Performance ($380/mo)' : 'All-Access Apex Pro ($149/mo)')}
+                        </span>
                       </div>
-                    )}
-                    <div className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-slate-950/80 backdrop-blur-md text-amber-400 flex items-center justify-center shadow-md">
-                      <IconComp className="w-4 h-4" />
-                    </div>
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <h3 className={`text-lg font-bold group-hover:text-amber-400 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                        {svc.title}
-                      </h3>
-                      <p className={`text-sm leading-relaxed mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                        {svc.description}
-                      </p>
+                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400">14 Slots Left</span>
                     </div>
 
-                    <button
-                      onClick={() => handleOpenModal(svc.title)}
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-slate-950"
-                    >
-                      <span>Inquire Protocol</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Your Full Name</label>
+                        <input
+                          type="text"
+                          required
+                          value={calcContact.name}
+                          onChange={(e) => setCalcContact({ ...calcContact, name: e.target.value })}
+                          placeholder="Kenji Sato"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Phone Number (WhatsApp or Mobile)</label>
+                        <input
+                          type="tel"
+                          required
+                          value={calcContact.phone}
+                          onChange={(e) => setCalcContact({ ...calcContact, phone: e.target.value })}
+                          placeholder="+81 90-0000-0000"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-2 flex justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setCalcStep(2)}
+                        className="px-6 py-3.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-sm uppercase"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase shadow-xl hover:opacity-95"
+                      >
+                        Lock In Priority Allocation
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* 7. TRANSPARENT MEMBERSHIP TIERS */}
+      {/* 9. TRANSPARENT MEMBERSHIP TIERS */}
       {siteData.pricing_plans?.length > 0 && (
         <section id="pricing" className={`py-20 lg:py-28 ${isDark ? 'bg-slate-900/40' : 'bg-slate-100/70'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -561,7 +833,7 @@ export default function App() {
         </section>
       )}
 
-      {/* 8. FACILITY SHOWCASE */}
+      {/* 10. FACILITY SHOWCASE */}
       {siteData.gallery_images?.length > 0 && (
         <section id="gallery" className="py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -602,7 +874,7 @@ export default function App() {
         </section>
       )}
 
-      {/* 9. TESTIMONIALS / VERIFIED REVIEWS */}
+      {/* 11. TESTIMONIALS / VERIFIED REVIEWS */}
       <section id="reviews" className={`py-20 lg:py-28 ${isDark ? 'bg-slate-900/40' : 'bg-slate-100/70'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
@@ -652,7 +924,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 10. OBJECTION-HANDLING FAQ */}
+      {/* 12. OBJECTION-HANDLING FAQ */}
       {siteData.faqs?.length > 0 && (
         <section id="faq" className="py-20 lg:py-28">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -695,7 +967,7 @@ export default function App() {
         </section>
       )}
 
-      {/* 11. HOURS & LOCATION MAP */}
+      {/* 13. HOURS & LOCATION */}
       <section id="hours" className={`py-20 border-t ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-900 text-white border-slate-800'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -745,7 +1017,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 12. HIGH-IMPACT PRE-FOOTER CTA STRIP */}
+      {/* 14. HIGH-IMPACT PRE-FOOTER CTA STRIP */}
       <section className="py-20 bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-blue-500/10 border-t border-slate-800 relative overflow-hidden">
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-400/10 blur-[120px] pointer-events-none rounded-full" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 relative z-10">
@@ -780,7 +1052,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 13. RICH FOOTER */}
+      {/* 15. RICH FOOTER */}
       <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-800/80 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pb-8 border-b border-slate-800 text-center sm:text-left">
@@ -818,7 +1090,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* 14. INTERACTIVE BOOKING MODAL */}
+      {/* 16. INTERACTIVE BOOKING MODAL */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div

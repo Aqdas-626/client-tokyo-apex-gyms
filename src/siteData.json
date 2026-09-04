@@ -21,6 +21,24 @@
     "Cellular Recovery Lab: Full-spectrum infrared sauna & 4°C cold immersion",
     "NSCA & CSCS Certified Master Performance Coaches on the floor"
   ],
+  "stats": [
+    {
+      "number": "350 Max",
+      "label": "Capped Member Floor"
+    },
+    {
+      "number": "100%",
+      "label": "Eleiko & Rogue Rigging"
+    },
+    {
+      "number": "4.9★",
+      "label": "240+ Verified Reviews"
+    },
+    {
+      "number": "24/7",
+      "label": "Biometric Facility Access"
+    }
+  ],
   "pillars": [
     {
       "step": "01",
@@ -43,48 +61,67 @@
       "description": "Data-calibrated strength and conditioning tailored around your career demands, optimizing metabolic flexibility, lean tissue retention, and mental acuity."
     }
   ],
-  "stats": [
-    {
-      "number": "350 Max",
-      "label": "Capped Member Floor"
-    },
-    {
-      "number": "100%",
-      "label": "Eleiko & Rogue Rigging"
-    },
-    {
-      "number": "4.9★",
-      "label": "240+ Verified Reviews"
-    },
-    {
-      "number": "24/7",
-      "label": "Biometric Facility Access"
-    }
+  "service_categories": [
+    "All Protocols",
+    "Strength & Power",
+    "Cellular Recovery",
+    "1-on-1 Coaching"
   ],
   "services": [
     {
       "title": "1-on-1 Biomechanical Optimization",
+      "category": "1-on-1 Coaching",
       "description": "Bespoke strength programming built from kinematic joint analysis and force-velocity profiling. Supervised directly by certified master performance directors.",
       "icon_name": "CheckCircle",
       "image_url": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
     },
     {
       "title": "Olympic Strength & Power Protocols",
+      "category": "Strength & Power",
       "description": "Dedicated Eleiko lifting platforms, calibrated bumper plates, and competition bars. Master the snatch, clean & jerk, and heavy compound loading with elite cueing.",
       "icon_name": "Zap",
       "image_url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
     },
     {
       "title": "Cellular Infrared & Contrast Lounge",
+      "category": "Cellular Recovery",
       "description": "Full-spectrum Clearlight infrared heat, 4°C cold plunge tubs, and pneumatic compression boots to rapidly flush lactic byproduct and revitalize nervous system function.",
       "icon_name": "Clock",
       "image_url": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
     },
     {
       "title": "Metabolic Longevity & Nutrition Blueprint",
+      "category": "1-on-1 Coaching",
       "description": "Continuous glucose monitoring guidance, nutrient timing for high-stress professional schedules, and lean tissue preservation strategies engineered for peak cognitive clarity.",
       "icon_name": "Award",
       "image_url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "dimension": "Member Density & Space",
+      "apex": "Strict 350-Member Cap • Guaranteed Zero Wait",
+      "commercial": "Unlimited (2,000+ Members) • Congested Queues"
+    },
+    {
+      "dimension": "Equipment Standard",
+      "apex": "100% Eleiko Competition Platforms & Rogue Bars",
+      "commercial": "Worn generic commercial pin-select machines"
+    },
+    {
+      "dimension": "Cellular Recovery Suites",
+      "apex": "Full-Spectrum Infrared Saunas & 4°C Cryo Plunges",
+      "commercial": "Standard public steam room or none"
+    },
+    {
+      "dimension": "Movement Diagnostics",
+      "apex": "Comprehensive 3D Kinematic Joint Screen Included",
+      "commercial": "None (or paid upsell by sales staff)"
+    },
+    {
+      "dimension": "Facility Access & Security",
+      "apex": "24/7 Encrypted Biometric Sanctuary Access",
+      "commercial": "Restricted hours & overcrowded locker rooms"
     }
   ],
   "pricing_plans": [
