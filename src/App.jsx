@@ -251,11 +251,11 @@ export default function App() {
                 <span>{siteData.hero_badge_text || 'Capped Membership Sanctuary'}</span>
               </div>
 
-              <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 {siteData.hero_headline}
               </h1>
 
-              <p className={`text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className={`text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-pretty ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                 {siteData.hero_description}
               </p>
 
