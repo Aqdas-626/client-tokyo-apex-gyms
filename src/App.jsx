@@ -81,7 +81,7 @@ export default function App() {
         body: JSON.stringify(payload)
       });
     } catch (err) {
-      // Graceful offline fallback: if backend is unreachable or deployed remotely, log locally
+      // Graceful offline fallback: logs locally if backend is remote or offline
       console.log('Lead queued locally:', payload);
     }
   };
@@ -124,7 +124,7 @@ export default function App() {
     : siteData.services?.filter(s => s.category === activeCategory);
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-200 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-200 pb-20 md:pb-0 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
       
       {/* 1. TOP NOTICE / ANNOUNCEMENT BAR */}
       <div className="bg-slate-900 text-slate-300 text-xs sm:text-sm py-2 px-4 border-b border-slate-800">
@@ -147,7 +147,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* 2. STICKY GLASSMORPHISM NAVBAR */}
+      {/* 2. STICKY GLASSMORPHISM NAVBAR (STREAMLINED FOR LAPTOP & TABLET) */}
       <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-200 ${isDark ? 'bg-slate-950/90 border-slate-800/80' : 'bg-white/95 border-slate-200/80 shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
@@ -175,18 +175,19 @@ export default function App() {
             </div>
           </a>
 
-          <nav className="hidden xl:flex items-center gap-7 text-sm font-semibold text-slate-400">
+          {/* Streamlined Desktop Navigation: Fits 1024px screens perfectly */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-400">
             {siteData.pillars?.length > 0 && (
               <a href="#pillars" className="hover:text-white transition-colors">The Standard</a>
             )}
             <a href="#protocols" className="hover:text-white transition-colors">Protocols</a>
             <a href="#comparison" className="hover:text-white transition-colors">Comparison</a>
-            <a href="#calculator" className="hover:text-white transition-colors">Calculator</a>
+            <a href="#calculator" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <span>Calculator</span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-400/20 text-amber-400 font-bold">New</span>
+            </a>
             <a href="#pricing" className="hover:text-white transition-colors">Tiers</a>
-            <a href="#gallery" className="hover:text-white transition-colors">Sanctuary</a>
-            <a href="#reviews" className="hover:text-white transition-colors">Results</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-            <a href="#hours" className="hover:text-white transition-colors">Location</a>
           </nav>
 
           <div className="hidden sm:flex items-center gap-3">
@@ -202,7 +203,7 @@ export default function App() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -210,7 +211,7 @@ export default function App() {
 
         {/* Mobile Nav Dropdown */}
         {mobileMenuOpen && (
-          <div className={`xl:hidden border-b px-6 py-4 space-y-3 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
+          <div className={`lg:hidden border-b px-6 py-4 space-y-3 ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
             <a href="#pillars" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">The Standard</a>
             <a href="#protocols" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Protocols</a>
             <a href="#comparison" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-base font-semibold">Comparison</a>
@@ -363,7 +364,7 @@ export default function App() {
       {enableMotion && (
         <div className="py-3 bg-amber-400/10 border-y border-amber-400/20 overflow-hidden relative select-none">
           <motion.div
-            className="flex gap-8 whitespace-nowrap text-xs sm:text-sm font-black uppercase tracking-widest text-amber-400"
+            className="flex gap-8 whitespace-nowrap text-xs sm:text-sm font-black uppercase tracking-widest text-amber-400 will-change-transform"
             animate={{ x: [0, -1200] }}
             transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
           >
@@ -461,8 +462,9 @@ export default function App() {
       )}
 
       {/* 6. INTERACTIVE SHOWCASE WITH TABBED FILTERING */}
-      <section id="protocols" className="py-20 lg:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section id="protocols" className="py-20 lg:py-28 relative">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-blue-500/5 blur-[120px] pointer-events-none rounded-full" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Specialized Protocols
@@ -545,10 +547,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. COMPARISON MATRIX: TOKYO APEX VS CONVENTIONAL GYMS */}
+      {/* 7. COMPARISON MATRIX (MOBILE-OPTIMIZED STACKED CARDS + DESKTOP LUMINOUS TABLE) */}
       {siteData.comparison_matrix?.length > 0 && (
-        <section id="comparison" className={`py-20 lg:py-28 border-y ${isDark ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <section id="comparison" className={`py-20 lg:py-28 border-y relative overflow-hidden ${isDark ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-100/70 border-slate-200'}`}>
+          <div className="absolute -top-32 right-1/4 w-[500px] h-[300px] bg-amber-400/5 blur-[120px] pointer-events-none rounded-full" />
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
             <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
                 Uncompromising Standards
@@ -561,43 +564,79 @@ export default function App() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl">
-              <div className="grid grid-cols-12 bg-slate-900/90 p-4 sm:p-6 border-b border-slate-800 font-bold text-xs sm:text-sm uppercase tracking-wider">
-                <div className="col-span-5 sm:col-span-4 text-slate-400">Architectural Dimension</div>
-                <div className="col-span-4 sm:col-span-4 text-amber-400 text-center font-black">★ Tokyo Apex Gyms</div>
-                <div className="col-span-3 sm:col-span-4 text-slate-500 text-center">Conventional Gyms</div>
+            {/* A. MOBILE-OPTIMIZED STACKED CARDS (SHOWS ONLY ON SCREENS < MD) */}
+            <div className="md:hidden space-y-4">
+              {siteData.comparison_matrix.map((row, idx) => (
+                <div key={idx} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3 shadow-lg">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{row.dimension}</span>
+                    <span className="text-[11px] font-black text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">The Apex Edge</span>
+                  </div>
+                  
+                  {/* Tokyo Apex Advantage */}
+                  <div className="bg-slate-950 border border-amber-400/40 rounded-xl p-3 flex items-start gap-2.5 shadow-md">
+                    <CheckCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[11px] font-bold text-amber-400 block uppercase">Tokyo Apex Gyms</span>
+                      <span className="text-xs font-bold text-white leading-relaxed">{row.apex}</span>
+                    </div>
+                  </div>
+
+                  {/* Conventional Gym Deficit */}
+                  <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-3 flex items-start gap-2.5">
+                    <XCircle className="w-4 h-4 text-rose-400/80 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-[11px] font-semibold text-slate-500 block uppercase">Conventional Gyms</span>
+                      <span className="text-xs text-slate-400 leading-relaxed">{row.commercial}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* B. DESKTOP LUMINOUS MATRIX (SHOWS ON MD AND ABOVE) */}
+            <div className="hidden md:block rounded-3xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl">
+              <div className="grid grid-cols-12 bg-slate-900/90 p-5 border-b border-slate-800 font-bold text-sm uppercase tracking-wider items-center">
+                <div className="col-span-4 text-slate-400">Architectural Dimension</div>
+                <div className="col-span-5 text-amber-400 text-center font-black bg-amber-400/10 py-1.5 rounded-xl border border-amber-400/30 shadow-sm">
+                  ★ Tokyo Apex Gyms (Capped Floor)
+                </div>
+                <div className="col-span-3 text-slate-500 text-center">Conventional Gyms</div>
               </div>
 
               <div className="divide-y divide-slate-800/80">
                 {siteData.comparison_matrix.map((row, idx) => (
-                  <div key={idx} className="grid grid-cols-12 p-4 sm:p-6 items-center hover:bg-slate-900/40 transition-colors text-xs sm:text-sm">
-                    <div className="col-span-5 sm:col-span-4 font-bold text-white pr-2">
+                  <div key={idx} className="grid grid-cols-12 p-5 items-center hover:bg-slate-900/40 transition-colors text-sm">
+                    <div className="col-span-4 font-bold text-white pr-4">
                       {row.dimension}
                     </div>
-                    <div className="col-span-4 sm:col-span-4 text-center px-2">
-                      <div className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+                    {/* Glowing Tokyo Apex Column */}
+                    <div className="col-span-5 text-center px-4 py-1.5 bg-amber-400/5 rounded-xl border border-amber-400/20">
+                      <div className="inline-flex items-center gap-2 text-emerald-400 font-bold">
                         <CheckCircle className="w-4 h-4 shrink-0 text-amber-400" />
-                        <span className="text-white text-xs sm:text-sm">{row.apex}</span>
+                        <span className="text-white text-sm font-semibold">{row.apex}</span>
                       </div>
                     </div>
-                    <div className="col-span-3 sm:col-span-4 text-center px-2">
-                      <div className="inline-flex items-center gap-1.5 text-slate-500">
+                    {/* Conventional Column */}
+                    <div className="col-span-3 text-center px-3">
+                      <div className="inline-flex items-center gap-2 text-slate-500">
                         <XCircle className="w-4 h-4 shrink-0 text-rose-400/80" />
-                        <span className="text-slate-400 text-xs sm:text-sm hidden sm:inline">{row.commercial}</span>
-                        <span className="text-slate-400 text-xs sm:hidden">Standard</span>
+                        <span className="text-slate-400 text-sm">{row.commercial}</span>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
           </div>
         </section>
       )}
 
       {/* 8. INTERACTIVE LEAD FLOW: MULTI-STEP ALLOCATION CALCULATOR */}
       <section id="calculator" className="py-20 lg:py-28 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-amber-500/5 blur-[140px] pointer-events-none rounded-full" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center space-y-4 mb-12">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Instant Allocation Engine
@@ -615,12 +654,12 @@ export default function App() {
               <div className="py-12 text-center space-y-4">
                 <CheckCircle className="w-16 h-16 text-emerald-400 mx-auto" />
                 <h3 className="text-2xl font-black text-white">Allocation Calculated &amp; Reserved</h3>
-                <p className="text-slate-300 max-w-md mx-auto text-sm">
+                <p className="text-slate-300 max-w-md mx-auto text-sm leading-relaxed">
                   Thank you, <span className="text-amber-400 font-bold">{calcContact.name}</span>. Your custom profile has been recorded in the Tokyo Apex priority queue. Our concierge will contact you via WhatsApp/Phone shortly.
                 </p>
                 <button
                   onClick={() => { setCalcSubmitted(false); setCalcStep(1); }}
-                  className="px-6 py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs uppercase hover:bg-slate-700"
+                  className="px-6 py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs uppercase hover:bg-slate-700 active:scale-95 transition-all"
                 >
                   Recalculate
                 </button>
@@ -636,28 +675,39 @@ export default function App() {
 
                 {calcStep === 1 && (
                   <div className="space-y-6">
-                    <h4 className="text-lg font-bold text-white">How frequently will you train in Tokyo?</h4>
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-base sm:text-lg font-bold text-white">How frequently will you train in Tokyo?</h4>
+                      <span className="text-xs text-amber-400 font-semibold hidden sm:inline">⚡ Live Matched Preview</span>
+                    </div>
                     <div className="grid sm:grid-cols-3 gap-4">
                       {[
-                        { title: '1-2 Days / Visiting', desc: 'Visiting executive pass with full 24h floor & shower suite access' },
-                        { title: '3-4 Days / Consistency', desc: 'Our signature capped floor membership for regular progress' },
-                        { title: '5+ Days / Dedicated', desc: 'High-touch athletic direction with dedicated master coaching' }
+                        { title: '1-2 Days / Visiting', price: 'Matched: Day Protocol Pass ($29)', desc: 'Visiting executive pass with full 24h floor & shower suite access' },
+                        { title: '3-4 Days / Consistency', price: 'Matched: All-Access Pro ($149/mo)', desc: 'Our signature capped floor membership for regular progress' },
+                        { title: '5+ Days / Dedicated', price: 'Matched: VIP Performance ($380/mo)', desc: 'High-touch athletic direction with dedicated master coaching' }
                       ].map((opt, i) => (
                         <button
                           key={i}
                           type="button"
                           onClick={() => setCalcFreq(opt.title)}
-                          className={`p-5 rounded-2xl border text-left transition-all ${calcFreq === opt.title ? 'bg-amber-400/10 border-amber-400 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'}`}
+                          className={`p-5 rounded-2xl border text-left transition-all flex flex-col justify-between ${calcFreq === opt.title ? 'bg-amber-400/10 border-amber-400 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'}`}
                         >
-                          <span className="font-bold block text-sm text-white mb-1">{opt.title}</span>
-                          <span className="text-xs text-slate-400">{opt.desc}</span>
+                          <div>
+                            <span className="font-bold block text-sm text-white mb-1">{opt.title}</span>
+                            <span className="text-xs text-slate-400">{opt.desc}</span>
+                          </div>
+                          <div className="pt-3 mt-3 border-t border-slate-800/80">
+                            <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 shrink-0" />
+                              <span>{opt.price}</span>
+                            </span>
+                          </div>
                         </button>
                       ))}
                     </div>
                     <div className="pt-4 flex justify-end">
                       <button
                         onClick={() => setCalcStep(2)}
-                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95"
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95 active:scale-95 transition-all"
                       >
                         <span>Next Step</span>
                         <ArrowRight className="w-4 h-4" />
@@ -668,7 +718,7 @@ export default function App() {
 
                 {calcStep === 2 && (
                   <div className="space-y-6">
-                    <h4 className="text-lg font-bold text-white">What is your primary athletic objective?</h4>
+                    <h4 className="text-base sm:text-lg font-bold text-white">What is your primary athletic objective?</h4>
                     <div className="grid sm:grid-cols-3 gap-4">
                       {[
                         { title: 'Olympic Strength & Power', desc: 'Eleiko platforms, bar speed metrics, compound loading' },
@@ -695,7 +745,7 @@ export default function App() {
                       </button>
                       <button
                         onClick={() => setCalcStep(3)}
-                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95"
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase flex items-center gap-2 hover:opacity-95 active:scale-95 transition-all"
                       >
                         <span>Review Allocation</span>
                         <ArrowRight className="w-4 h-4" />
@@ -725,7 +775,7 @@ export default function App() {
                           value={calcContact.name}
                           onChange={(e) => setCalcContact({ ...calcContact, name: e.target.value })}
                           placeholder="Kenji Sato"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                       </div>
                       <div>
@@ -736,7 +786,7 @@ export default function App() {
                           value={calcContact.phone}
                           onChange={(e) => setCalcContact({ ...calcContact, phone: e.target.value })}
                           placeholder="+81 90-0000-0000"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                         />
                       </div>
                     </div>
@@ -751,7 +801,7 @@ export default function App() {
                       </button>
                       <button
                         type="submit"
-                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase shadow-xl hover:opacity-95"
+                        className="px-8 py-3.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase shadow-xl hover:opacity-95 active:scale-95 transition-all"
                       >
                         Lock In Priority Allocation
                       </button>
@@ -1090,7 +1140,37 @@ export default function App() {
         </div>
       </footer>
 
-      {/* 16. INTERACTIVE BOOKING MODAL */}
+      {/* 16. STICKY MOBILE CONVERSION DOCK (SHOWS ONLY ON MOBILE < MD) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800/90 px-4 py-3 shadow-2xl flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <div className="text-left">
+            <span className="text-xs font-bold text-white block leading-tight">14 Allocations Left</span>
+            <span className="text-[10px] text-amber-400 block font-medium">Floor Capped at 350</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {siteData.phone && (
+            <a
+              href={`tel:${siteData.phone}`}
+              className="p-2.5 rounded-xl bg-slate-900 text-amber-400 border border-slate-700 hover:bg-slate-800 active:scale-95 transition-all shadow-md"
+              title="Call Concierge"
+            >
+              <Phone className="w-4 h-4" />
+            </a>
+          )}
+          <button
+            onClick={() => handleOpenModal('Executive Pass')}
+            className="px-4 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg hover:opacity-95 active:scale-95 transition-all flex items-center gap-1.5"
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Claim Pass</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 17. INTERACTIVE BOOKING MODAL */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -1172,7 +1252,7 @@ export default function App() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:opacity-95 shadow-xl mt-4"
+                    className="w-full py-4 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:opacity-95 shadow-xl mt-4 active:scale-95 transition-all"
                   >
                     Submit Allocation Request
                   </button>

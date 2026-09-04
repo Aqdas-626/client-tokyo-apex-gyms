@@ -260,28 +260,29 @@ export default function Gym3DCanvas({ isDark = true, accentColor = '#f59e0b' }) 
       <div
         ref={mountRef}
         className="w-full h-full cursor-grab active:cursor-grabbing select-none"
+        style={{ touchAction: 'pan-y' }}
         title="Click and drag to rotate 3D model"
       />
 
       <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700/80 text-amber-400 text-xs font-bold shadow-lg">
-          <Rotate3d className="w-3.5 h-3.5 animate-spin-slow" />
+          <Rotate3d className="w-3.5 h-3.5" />
           <span>Interactive 3D View</span>
         </div>
 
         <button
           onClick={() => setWireframe(!wireframe)}
-          className="pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 backdrop-blur-md border border-slate-700 text-xs font-bold text-slate-300 hover:text-amber-400 transition-all shadow-lg"
+          className="pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 backdrop-blur-md border border-slate-700 text-xs font-bold text-slate-300 hover:text-amber-400 transition-all shadow-lg active:scale-95"
           title="Toggle Holographic Wireframe Mode"
         >
           <Layers className="w-3.5 h-3.5 text-amber-400" />
-          <span>{wireframe ? 'Solid' : 'Wireframe'}</span>
+          <span>{wireframe ? 'Solid Mesh' : 'Wireframe'}</span>
         </button>
       </div>
 
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-slate-950/75 backdrop-blur-md border border-slate-800 text-[11px] font-semibold text-slate-400 pointer-events-none shadow-md flex items-center gap-2">
-        <Sparkles className="w-3 h-3 text-amber-400" />
-        <span>{isInteracting ? 'Rotating 3D Model...' : 'Drag or swipe to rotate 360°'}</span>
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-800 text-[11px] font-semibold text-slate-300 pointer-events-none shadow-md flex items-center gap-1.5 whitespace-nowrap">
+        <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+        <span>{isInteracting ? 'Rotating 3D Model...' : '👆 Drag to spin 3D • Scroll outside'}</span>
       </div>
     </div>
   );
