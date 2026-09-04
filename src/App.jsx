@@ -66,7 +66,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`min-h-screen flex flex-col font-sans overflow-x-hidden transition-colors duration-200 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
       
       {/* 1. TOP NOTICE / ANNOUNCEMENT BAR */}
       <div className="bg-slate-900 text-slate-300 text-xs sm:text-sm py-2 px-4 border-b border-slate-800">
@@ -491,7 +491,7 @@ export default function App() {
                       {t.author.charAt(0)}
                     </div>
                     <div>
-                      <span className={`text-sm font-bold block ${isDark ? 'text-white' : 'text-slate-950'}`}>{t.author}</span>
+                      <span className={`text-sm font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.author}</span>
                       <span className="text-xs text-emerald-400 font-semibold">Verified Review</span>
                     </div>
                   </div>
@@ -637,7 +637,7 @@ export default function App() {
       {/* 12. INTERACTIVE BOOKING MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative text-white">
+          <div className="bg-slate-900 border border-slate-700 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-8 shadow-2xl relative text-white">
             <button
               onClick={() => setModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800"
@@ -668,7 +668,7 @@ export default function App() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="John Doe"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                 </div>
                 <div>
@@ -679,7 +679,7 @@ export default function App() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="(555) 000-0000"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                 </div>
                 <div>
@@ -689,7 +689,7 @@ export default function App() {
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     placeholder="Select or type service..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                 </div>
                 <div>
@@ -699,7 +699,7 @@ export default function App() {
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="Preferred time or specific requests..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                 </div>
                 <button
