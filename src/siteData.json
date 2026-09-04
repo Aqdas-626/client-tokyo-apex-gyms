@@ -1,45 +1,149 @@
 {
   "business_name": "Tokyo Apex Gyms",
+  "tagline": "Elevate Your Athletic Potential in Tokyo",
   "logo_url": "/logo.svg",
-  "tagline": "Top-Rated Gyms You Can Depend On",
-  "hero_headline": "Premier Gyms Serving You With Excellence",
-  "hero_description": "With a 4.8-star reputation on Google and satisfied local clients, Tokyo Apex Gyms provides trusted, high-quality solutions designed around your needs.",
-  "call_to_action_text": "Contact Us Today",
+  "hero_headline": "Redefine Human Performance At Tokyo’s Premier Fitness Sanctuary",
+  "hero_description": "Experience elite strength conditioning, modern biomechanical technology, and bespoke athletic recovery at 512 Parkview Blvd. Engineered for driven individuals who demand uncompromising physical excellence.",
+  "hero_badge_text": "Top-Rated Luxury Gym in Tokyo Apex District",
+  "hero_image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&auto=format&fit=crop&q=85",
+  "call_to_action_text": "Claim Your VIP Pass",
   "call_to_action_phone": "(555) 678-1234",
-  "about_text": "At Tokyo Apex Gyms, we take immense pride in delivering extraordinary service. Our dedicated team brings years of hands-on expertise, modern techniques, and a customer-first mindset to every job.",
+  "about_text": "At Tokyo Apex Gyms, we integrate precision movement mechanics with luxury recovery infrastructure to build an environment built for high performers. Founded on the standard of relentless physical optimization, our space is meticulously designed to eliminate friction and maximize every workout.\n\nFrom custom-engineered strength zones to infrared cellular recovery suites, every detail at 512 Parkview Blvd elevates your energy, strength, and physical longevity. Step into an exclusive community where exceptional standards are the baseline.",
   "why_choose_us": [
-    "Trusted Local Reputation & Proven Track Record",
-    "Upfront Transparent Pricing With No Hidden Fees",
-    "Prompt, Reliable & Professional Service",
-    "Complete Customer Satisfaction Guaranteed"
+    "Elite Sports Science & Custom Program Architecture",
+    "State-of-the-Art Biomechanical Equipment & Recovery",
+    "Low-Density Gym Floor for Uninterrupted Focus",
+    "World-Class Certified Master Performance Coaches"
+  ],
+  "stats": [
+    {
+      "number": "1,500+",
+      "label": "Transformed Members"
+    },
+    {
+      "number": "4.8★",
+      "label": "Google Rating"
+    },
+    {
+      "number": "24/7",
+      "label": "Keycard Facility Access"
+    },
+    {
+      "number": "100%",
+      "label": "Commitment To Results"
+    }
   ],
   "services": [
     {
-      "title": "Comprehensive Inspection & Consultation",
-      "description": "Thorough diagnosis and honest recommendations tailored to your exact situation.",
-      "icon_name": "Search"
+      "title": "1-on-1 Precision Coaching",
+      "description": "Tailored athletic programming built around your personal biomechanics and metabolic goals. Experience rapid, measurable physical transformations under master coach supervision.",
+      "icon_name": "CheckCircle",
+      "image_url": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Expert Gyms Solutions",
-      "description": "Top-tier craftmanship backed by industry standards and high-grade materials.",
-      "icon_name": "ShieldCheck"
+      "title": "Advanced Athletic Conditioning",
+      "description": "High-efficiency resistance and athletic movement protocols engineered to build explosive physical strength. Maximize caloric output while safeguarding joint longevity.",
+      "icon_name": "ShieldCheck",
+      "image_url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Emergency & Priority Care",
-      "description": "Rapid response when you need quick, dependable assistance.",
-      "icon_name": "Clock"
+      "title": "Infrared & Recovery Lounge",
+      "description": "Accelerate systemic muscle repair, decrease inflammation, and revitalize your energy in our luxury recovery suite. Designed specifically for optimal post-workout restoration.",
+      "icon_name": "Clock",
+      "image_url": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Maintenance & Long-Term Support",
-      "description": "Preventative care to keep everything running at peak performance year-round.",
-      "icon_name": "Award"
+      "title": "Metabolic & Nutrition Blueprint",
+      "description": "Data-backed nutritional protocols crafted to seamlessly integrate with your training schedule. Fuel your mind and body for peak output and sustainable body composition changes.",
+      "icon_name": "Award",
+      "image_url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
     }
+  ],
+  "pricing_plans": [
+    {
+      "name": "Day Pass / Flexible",
+      "price": "$19",
+      "period": "per day",
+      "popular": false,
+      "description": "Perfect for travelers or occasional workouts with full access.",
+      "features": [
+        "Full Gym Floor Access",
+        "Locker Room & Showers",
+        "Free Weights & Cardio",
+        "No Contract Required"
+      ],
+      "cta_text": "Get Day Pass"
+    },
+    {
+      "name": "All-Access Pro",
+      "price": "$59",
+      "period": "per month",
+      "popular": true,
+      "description": "Our most popular membership for consistent athletic transformation.",
+      "features": [
+        "24/7 Keycard Facility Access",
+        "All Group Fitness Classes Included",
+        "1 Free Personal Training Session",
+        "Sauna & Recovery Lounge",
+        "Free Guest Pass Every Month"
+      ],
+      "cta_text": "Join Pro Membership"
+    },
+    {
+      "name": "VIP Elite Athlete",
+      "price": "$129",
+      "period": "per month",
+      "popular": false,
+      "description": "Dedicated personalized coaching and premium recovery perks.",
+      "features": [
+        "Everything in Pro Membership",
+        "4 Weekly Personal Training Sessions",
+        "Custom Nutrition & Meal Planning",
+        "Priority Recovery Suite Booking",
+        "Exclusive Member Locker"
+      ],
+      "cta_text": "Apply For VIP"
+    }
+  ],
+  "gallery_images": [
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
   ],
   "testimonials": [
     {
       "author": "Robert Martinez",
       "rating": 5,
-      "comment": "Outstanding service from start to finish. Explained everything clearly."
+      "comment": "Outstanding service from start to finish. Explained everything clearly and helped me establish a sustainable performance routine."
+    },
+    {
+      "author": "Kenji Sato",
+      "rating": 5,
+      "comment": "Tokyo Apex Gyms is in a class of its own. The equipment quality, low-density training floor, and recovery suite make every visit exceptional."
+    },
+    {
+      "author": "Elena Rostova",
+      "rating": 5,
+      "comment": "The personal coaching team redefined how I view functional training. Unmatched professionalism right in 512 Parkview Blvd."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How quickly can I book an initial consultation or facility tour?",
+      "answer": "We offer immediate scheduling online or over the phone, with priority appointments available within 24 hours."
+    },
+    {
+      "question": "Do you provide transparent upfront pricing?",
+      "answer": "Yes, we maintain complete transparency with honest membership tiers and zero hidden fees before you sign."
+    },
+    {
+      "question": "Are your fitness coaches licensed and certified?",
+      "answer": "Absolutely. Every elite coach on our team holds top international certifications and adheres to rigorous safety standards."
+    },
+    {
+      "question": "What guarantees do you offer on personal coaching?",
+      "answer": "We back our coaching with a 100% satisfaction commitment. We recalibrate your customized program until you reach your physical targets."
     }
   ],
   "business_hours": [
@@ -48,16 +152,16 @@
   ],
   "address": "512 Parkview Blvd, Tokyo",
   "phone": "(555) 678-1234",
-  "email": "",
+  "email": "membership@tokyoapexgyms.jp",
   "footer": {
-    "show_logo": true,
     "logo_url": "/logo.svg",
-    "description": "Premier Gyms Serving You With Excellence.",
+    "description": "Premier luxury facility serving Tokyo Apex Gyms clientele with athletic distinction.",
     "copyright": "© Tokyo Apex Gyms. All rights reserved."
   },
   "theme": {
-    "primary_color": "#1e40af",
+    "primary_color": "#0f172a",
     "accent_color": "#f59e0b",
-    "font_family": "Inter, sans-serif"
+    "font_family": "Inter, sans-serif",
+    "theme_mode": "dark"
   }
 }
