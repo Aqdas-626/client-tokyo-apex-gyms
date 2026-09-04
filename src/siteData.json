@@ -1,0 +1,56 @@
+{
+  "business_name": "Tokyo Apex Gyms",
+  "tagline": "Top-Rated Gyms You Can Depend On",
+  "hero_headline": "Premier Gyms Serving You With Excellence",
+  "hero_description": "With a 4.8-star reputation on Google and satisfied local clients, Tokyo Apex Gyms provides trusted, high-quality solutions designed around your needs.",
+  "call_to_action_text": "Contact Us Today",
+  "call_to_action_phone": "(555) 678-1234",
+  "about_text": "At Tokyo Apex Gyms, we take immense pride in delivering extraordinary service. Our dedicated team brings years of hands-on expertise, modern techniques, and a customer-first mindset to every job.",
+  "why_choose_us": [
+    "Trusted Local Reputation & Proven Track Record",
+    "Upfront Transparent Pricing With No Hidden Fees",
+    "Prompt, Reliable & Professional Service",
+    "Complete Customer Satisfaction Guaranteed"
+  ],
+  "services": [
+    {
+      "title": "Comprehensive Inspection & Consultation",
+      "description": "Thorough diagnosis and honest recommendations tailored to your exact situation.",
+      "icon_name": "Search"
+    },
+    {
+      "title": "Expert Gyms Solutions",
+      "description": "Top-tier craftmanship backed by industry standards and high-grade materials.",
+      "icon_name": "ShieldCheck"
+    },
+    {
+      "title": "Emergency & Priority Care",
+      "description": "Rapid response when you need quick, dependable assistance.",
+      "icon_name": "Clock"
+    },
+    {
+      "title": "Maintenance & Long-Term Support",
+      "description": "Preventative care to keep everything running at peak performance year-round.",
+      "icon_name": "Award"
+    }
+  ],
+  "testimonials": [
+    {
+      "author": "Robert Martinez",
+      "rating": 5,
+      "comment": "Outstanding service from start to finish. Explained everything clearly."
+    }
+  ],
+  "business_hours": [
+    "Mon-Fri: 9:00 AM – 5:00 PM",
+    "Sat-Sun: Closed"
+  ],
+  "address": "512 Parkview Blvd, Tokyo",
+  "phone": "(555) 678-1234",
+  "email": "",
+  "theme": {
+    "primary_color": "#1e40af",
+    "accent_color": "#f59e0b",
+    "font_family": "Inter, sans-serif"
+  }
+}
