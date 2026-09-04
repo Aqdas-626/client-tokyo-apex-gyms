@@ -278,6 +278,15 @@ export default function App() {
                 </a>
               </div>
 
+              {/* Micro-Reassurance Label */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[11px] font-semibold text-slate-400 pt-1">
+                <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-amber-400" /> Zero Contract</span>
+                <span>•</span>
+                <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> 100% Satisfaction Guarantee</span>
+                <span>•</span>
+                <span className="text-amber-400 font-bold">14 Allocations Left</span>
+              </div>
+
               {/* Trust Proof Badges Bar */}
               <div className="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm font-bold text-slate-400">
                 <div className="flex items-center gap-2 text-amber-400">
@@ -417,10 +426,10 @@ export default function App() {
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider border border-amber-400/20">
                 The Apex Standard
               </div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 Engineered For Frictionless Performance
               </h2>
-              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 Four non-negotiable architectural pillars that distinguish Tokyo Apex from conventional commercial gyms.
               </p>
             </div>
@@ -469,10 +478,10 @@ export default function App() {
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Specialized Protocols
             </div>
-            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
               Interactive Protocol Showcase
             </h2>
-            <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+            <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
               Filter by objective to explore our sports-science verified performance architecture.
             </p>
 
@@ -556,10 +565,10 @@ export default function App() {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
                 Uncompromising Standards
               </div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 Tokyo Apex vs. Conventional Gyms
               </h2>
-              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 See exactly why Tokyo executives and high-performers refuse standard commercial gym compromises.
               </p>
             </div>
@@ -641,10 +650,10 @@ export default function App() {
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Instant Allocation Engine
             </div>
-            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
               Calculate Your Custom Performance Tier
             </h2>
-            <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+            <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
               Answer two quick questions to match your schedule with our capped floor density.
             </p>
           </div>
@@ -766,6 +775,12 @@ export default function App() {
                       <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400">14 Slots Left</span>
                     </div>
 
+                    {/* Social Proof Quote Snippet */}
+                    <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 italic flex items-center gap-3 shadow-inner">
+                      <Star className="w-4 h-4 text-amber-400 shrink-0 fill-current" />
+                      <span>“The 350-member floor cap means I never wait for an Eleiko rack.” <strong className="text-white not-italic">— Kenji T., Tokyo Tech Ventures</strong></span>
+                    </div>
+
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Your Full Name</label>
@@ -822,10 +837,10 @@ export default function App() {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
                 Capped Allocations
               </div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 Transparent Membership Tiers
               </h2>
-              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 Zero long-term contracts. Strict floor density guarantees an uncrowded sanctuary.
               </p>
             </div>
@@ -839,7 +854,7 @@ export default function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.12 }}
                   whileHover={enableMotion ? { scale: p.popular ? 1.05 : 1.02, transition: { duration: 0.2 } } : {}}
-                  className={`rounded-3xl p-8 flex flex-col justify-between relative transition-all duration-300 ${p.popular ? 'border-2 border-amber-400 shadow-2xl scale-105 z-10' : 'border'} ${isDark ? (p.popular ? 'bg-slate-900' : 'bg-slate-950 border-slate-800') : (p.popular ? 'bg-white' : 'bg-white border-slate-200 shadow-md')}`}
+                  className={`rounded-3xl p-8 flex flex-col justify-between relative transition-all duration-300 ${p.popular ? 'border-2 border-amber-400 shadow-[0_0_40px_rgba(245,158,11,0.2)] scale-105 z-10' : 'border'} ${isDark ? (p.popular ? 'bg-slate-900' : 'bg-slate-950 border-slate-800') : (p.popular ? 'bg-white' : 'bg-white border-slate-200 shadow-md')}`}
                 >
                   {p.popular && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-md whitespace-nowrap">
@@ -891,10 +906,10 @@ export default function App() {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
                 Inside The Sanctuary
               </div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 Precision Architecture &amp; Rigging
               </h2>
-              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 Meticulously designed training floor, Eleiko competition zones, and restorative recovery suites.
               </p>
             </div>
@@ -931,10 +946,10 @@ export default function App() {
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
               Executive Results
             </div>
-            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
               Trusted By Driven Leaders
             </h2>
-            <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+            <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
               Authentic feedback from Tokyo founders, executives, and elite athletes who refuse standard commercial compromises.
             </p>
           </div>
@@ -982,10 +997,10 @@ export default function App() {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
                 Direct Answers
               </div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-balance ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 Frequently Asked Questions
               </h2>
-              <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-base sm:text-lg text-pretty ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                 Clear, upfront answers on membership limits, coaching credentials, and access.
               </p>
             </div>
@@ -1027,7 +1042,7 @@ export default function App() {
                 <Clock className="w-4 h-4" />
                 <span>Sanctuary Hours &amp; Access</span>
               </div>
-              <h3 className="text-3xl sm:text-4xl font-black text-white">24/7 Biometric Access</h3>
+              <h3 className="text-3xl sm:text-4xl font-black text-white text-balance">24/7 Biometric Access</h3>
               <ul className="space-y-3 pt-2">
                 {siteData.business_hours?.map((h, idx) => (
                   <li key={idx} className="flex items-center justify-between border-b border-slate-800 pb-2.5 text-sm">
@@ -1075,10 +1090,10 @@ export default function App() {
             <Sparkles className="w-3.5 h-3.5" />
             <span>Strict Floor Density • 14 Allocations Left</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight text-balance">
             {siteData.cta_banner?.headline || "Ready to Train Without Compromise?"}
           </h2>
-          <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed text-pretty">
             {siteData.cta_banner?.subheadline || "Experience Tokyo's most exclusive athletic performance floor and cellular recovery lab."}
           </p>
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">

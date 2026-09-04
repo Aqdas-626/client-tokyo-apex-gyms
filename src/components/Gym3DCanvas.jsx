@@ -211,8 +211,8 @@ export default function Gym3DCanvas({ isDark = true, accentColor = '#f59e0b' }) 
       const elapsedTime = clock.getElapsedTime();
 
       if (!isDragging) {
-        velocity.x *= 0.96;
-        velocity.y *= 0.96;
+        velocity.x *= 0.975;
+        velocity.y *= 0.975;
         group.rotation.y += velocity.x + 0.007;
         group.rotation.x += velocity.y;
       }
