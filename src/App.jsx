@@ -62,12 +62,20 @@ export default function App() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md"
-              style={{ backgroundColor: primaryColor }}
-            >
-              {siteData.business_name.charAt(0)}
-            </div>
+            {siteData.logo_url ? (
+              <img
+                src={siteData.logo_url}
+                alt={siteData.business_name}
+                className="w-12 h-12 object-contain rounded-xl shadow-md bg-slate-900 p-1"
+              />
+            ) : (
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md"
+                style={{ backgroundColor: primaryColor }}
+              >
+                {siteData.business_name.charAt(0)}
+              </div>
+            )}
             <div>
               <span className="font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight block leading-tight">
                 {siteData.business_name}
@@ -424,10 +432,40 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-950 text-slate-500 py-8 border-t border-slate-900 text-xs">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-          <span>&copy; {new Date().getFullYear()} {siteData.business_name}. All rights reserved.</span>
-          <span>Designed with high-conversion web standards.</span>
+      <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900 text-sm">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pb-8 border-b border-slate-800 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              {(siteData.footer?.logo_url || siteData.logo_url) && (
+                <img
+                  src={siteData.footer?.logo_url || siteData.logo_url}
+                  alt={siteData.business_name}
+                  className="w-12 h-12 object-contain rounded-xl shadow-lg bg-slate-900 p-1"
+                />
+              )}
+              <div>
+                <span className="font-bold text-lg text-white block">
+                  {siteData.business_name}
+                </span>
+                <span className="text-xs text-slate-400">
+                  {siteData.footer?.description || siteData.tagline}
+                </span>
+              </div>
+            </div>
+            {siteData.phone && (
+              <a
+                href={`tel:${siteData.phone}`}
+                className="text-white hover:text-emerald-400 font-semibold transition-colors flex items-center gap-2"
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>{siteData.phone}</span>
+              </a>
+            )}
+          </div>
+          <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-500 text-center sm:text-left">
+            <span>&copy; {new Date().getFullYear()} {siteData.business_name}. All rights reserved.</span>
+            <span>Premium Performance &amp; Web Standards.</span>
+          </div>
         </div>
       </footer>
     </div>
