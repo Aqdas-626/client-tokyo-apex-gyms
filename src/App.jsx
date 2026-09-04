@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import siteData from './siteData.json';
+import Gym3DCanvas from './components/Gym3DCanvas';
 import {
   Phone,
   MapPin,
@@ -20,7 +21,8 @@ import {
   Calendar,
   Check,
   Zap,
-  Users
+  Users,
+  Rotate3d
 } from 'lucide-react';
 
 const iconMap = {
@@ -33,7 +35,8 @@ const iconMap = {
   Sparkles,
   Phone,
   Zap,
-  Users
+  Users,
+  Rotate3d
 };
 
 export default function App() {
@@ -43,6 +46,7 @@ export default function App() {
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', notes: '' });
+  const [heroViewMode, setHeroViewMode] = useState('3d');
 
   const enableMotion = Boolean(siteData.enable_motion);
   const primaryColor = siteData.theme?.primary_color || '#0f172a';
@@ -241,7 +245,7 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Right Column: Hero Visual Container */}
+            {/* Right Column: 3D Interactive Model & Visual Showcase */}
             <motion.div
               initial={enableMotion ? { opacity: 0, scale: 0.95 } : false}
               animate={enableMotion ? { opacity: 1, scale: 1 } : false}
@@ -249,34 +253,56 @@ export default function App() {
               className="lg:col-span-5 relative"
             >
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
-                  {siteData.hero_image_url ? (
-                    <img
-                      src={siteData.hero_image_url}
-                      alt={siteData.business_name}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-                      <Sparkles className="w-16 h-16 text-amber-400" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  
-                  {/* Floating Highlight Pill */}
-                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 flex items-center justify-between shadow-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center font-bold">
-                        <Award className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-xs text-slate-400 block font-medium">Local Excellence</span>
-                        <span className="text-sm font-bold text-white">{siteData.business_name}</span>
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Open Today</span>
-                  </div>
+                {/* 3D / Photo Mode Switcher */}
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <button
+                    onClick={() => setHeroViewMode('3d')}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 shadow-md ${heroViewMode === '3d' ? 'bg-amber-400 text-slate-950 scale-105' : 'bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800'}`}
+                  >
+                    <Rotate3d className="w-3.5 h-3.5" />
+                    <span>3D Interactive Gear</span>
+                  </button>
+                  <button
+                    onClick={() => setHeroViewMode('photo')}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 shadow-md ${heroViewMode === 'photo' ? 'bg-amber-400 text-slate-950 scale-105' : 'bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800'}`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Facility Photo</span>
+                  </button>
                 </div>
+
+                {heroViewMode === '3d' ? (
+                  <Gym3DCanvas isDark={isDark} accentColor={accentColor} />
+                ) : (
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
+                    {siteData.hero_image_url ? (
+                      <img
+                        src={siteData.hero_image_url}
+                        alt={siteData.business_name}
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-900 flex items-center justify-center">
+                        <Sparkles className="w-16 h-16 text-amber-400" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                    
+                    {/* Floating Highlight Pill */}
+                    <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 flex items-center justify-between shadow-xl">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center font-bold">
+                          <Award className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <span className="text-xs text-slate-400 block font-medium">Local Excellence</span>
+                          <span className="text-sm font-bold text-white">{siteData.business_name}</span>
+                        </div>
+                      </div>
+                      <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Open Today</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
 
