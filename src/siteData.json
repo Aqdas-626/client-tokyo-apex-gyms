@@ -1,109 +1,139 @@
 {
   "business_name": "Tokyo Apex Gyms",
   "enable_motion": true,
-  "tagline": "Elevate Your Athletic Potential in Tokyo",
+  "tagline": "Tokyo's Exclusive High-Performance Training Sanctuary",
   "logo_url": "/logo.svg",
-  "hero_headline": "Redefine Human Performance At Tokyo’s Premier Fitness Sanctuary",
-  "hero_description": "Experience elite strength conditioning, modern biomechanical technology, and bespoke athletic recovery at 512 Parkview Blvd. Engineered for driven individuals who demand uncompromising physical excellence.",
-  "hero_badge_text": "Top-Rated Luxury Gym in Tokyo Apex District",
+  "hero_headline": "Architect Your Peak Physical & Mental Performance in Tokyo",
+  "hero_description": "Olympic-grade Eleiko platforms, precision biomechanical conditioning, and cellular infrared recovery suites. Engineered exclusively for Tokyo executives and high-performers who refuse standard gym compromises.",
+  "hero_badge_text": "Capped Membership Floor • 14 Allocations Remaining",
   "hero_image_url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&auto=format&fit=crop&q=85",
-  "call_to_action_text": "Claim Your VIP Pass",
-  "call_to_action_phone": "(555) 678-1234",
-  "about_text": "At Tokyo Apex Gyms, we integrate precision movement mechanics with luxury recovery infrastructure to build an environment built for high performers. Founded on the standard of relentless physical optimization, our space is meticulously designed to eliminate friction and maximize every workout.\n\nFrom custom-engineered strength zones to infrared cellular recovery suites, every detail at 512 Parkview Blvd elevates your energy, strength, and physical longevity. Step into an exclusive community where exceptional standards are the baseline.",
+  "call_to_action_text": "Claim Executive Pass",
+  "call_to_action_phone": "+81 3 5550 1234",
+  "about_text": "Tokyo Apex Gyms was engineered around a single truth: elite physical output requires an environment free of friction. Standard commercial gyms compromise your time with overcrowded floors, worn equipment, and generic routines. We operate on a strict 350-member floor cap, ensuring you never wait for an Olympic rack or an infrared recovery suite.\n\nFrom 3D biomechanical movement diagnostics to custom hypertrophy and longevity programming, every square meter of our Minato facility is calibrated for uncompromising physical transformation.",
+  "announcement": {
+    "badge": "STRICT FLOOR CAP",
+    "text": "Floor Density Limited to 350 Members • Only 14 Allocations Open for March",
+    "phone": "+81 3 5550 1234"
+  },
   "why_choose_us": [
-    "Elite Sports Science & Custom Program Architecture",
-    "State-of-the-Art Biomechanical Equipment & Recovery",
-    "Low-Density Gym Floor for Uninterrupted Focus",
-    "World-Class Certified Master Performance Coaches"
+    "Strict 350-Member Cap: Guaranteed zero wait times on racks and platforms",
+    "100% Eleiko Olympic Bars, Rogue Racks & Custom Biomechanical Loaders",
+    "Cellular Recovery Lab: Full-spectrum infrared sauna & 4°C cold immersion",
+    "NSCA & CSCS Certified Master Performance Coaches on the floor"
+  ],
+  "pillars": [
+    {
+      "step": "01",
+      "title": "Biomechanical Screen",
+      "description": "Every member undergoes a full diagnostic assessment measuring kinetic joint range, mobility asymmetries, and force production curves before lifting a single bar."
+    },
+    {
+      "step": "02",
+      "title": "Uncompromised Space",
+      "description": "Strict 350-member cap guarantees you never wait for a squat rack, Eleiko barbell, or cable station, whether you train at 6:00 AM or 7:00 PM."
+    },
+    {
+      "step": "03",
+      "title": "Cellular Recovery Lab",
+      "description": "Accelerate systemic recovery, blunt cortisol, and enhance restorative sleep with full-spectrum infrared saunas and cold plunges engineered for tissue restoration."
+    },
+    {
+      "step": "04",
+      "title": "Longevity Architecture",
+      "description": "Data-calibrated strength and conditioning tailored around your career demands, optimizing metabolic flexibility, lean tissue retention, and mental acuity."
+    }
   ],
   "stats": [
     {
-      "number": "1,500+",
-      "label": "Transformed Members"
-    },
-    {
-      "number": "4.8★",
-      "label": "Google Rating"
-    },
-    {
-      "number": "24/7",
-      "label": "Keycard Facility Access"
+      "number": "350 Max",
+      "label": "Capped Member Floor"
     },
     {
       "number": "100%",
-      "label": "Commitment To Results"
+      "label": "Eleiko & Rogue Rigging"
+    },
+    {
+      "number": "4.9★",
+      "label": "240+ Verified Reviews"
+    },
+    {
+      "number": "24/7",
+      "label": "Biometric Facility Access"
     }
   ],
   "services": [
     {
-      "title": "1-on-1 Precision Coaching",
-      "description": "Tailored athletic programming built around your personal biomechanics and metabolic goals. Experience rapid, measurable physical transformations under master coach supervision.",
+      "title": "1-on-1 Biomechanical Optimization",
+      "description": "Bespoke strength programming built from kinematic joint analysis and force-velocity profiling. Supervised directly by certified master performance directors.",
       "icon_name": "CheckCircle",
       "image_url": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Advanced Athletic Conditioning",
-      "description": "High-efficiency resistance and athletic movement protocols engineered to build explosive physical strength. Maximize caloric output while safeguarding joint longevity.",
-      "icon_name": "ShieldCheck",
+      "title": "Olympic Strength & Power Protocols",
+      "description": "Dedicated Eleiko lifting platforms, calibrated bumper plates, and competition bars. Master the snatch, clean & jerk, and heavy compound loading with elite cueing.",
+      "icon_name": "Zap",
       "image_url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Infrared & Recovery Lounge",
-      "description": "Accelerate systemic muscle repair, decrease inflammation, and revitalize your energy in our luxury recovery suite. Designed specifically for optimal post-workout restoration.",
+      "title": "Cellular Infrared & Contrast Lounge",
+      "description": "Full-spectrum Clearlight infrared heat, 4°C cold plunge tubs, and pneumatic compression boots to rapidly flush lactic byproduct and revitalize nervous system function.",
       "icon_name": "Clock",
       "image_url": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
     },
     {
-      "title": "Metabolic & Nutrition Blueprint",
-      "description": "Data-backed nutritional protocols crafted to seamlessly integrate with your training schedule. Fuel your mind and body for peak output and sustainable body composition changes.",
+      "title": "Metabolic Longevity & Nutrition Blueprint",
+      "description": "Continuous glucose monitoring guidance, nutrient timing for high-stress professional schedules, and lean tissue preservation strategies engineered for peak cognitive clarity.",
       "icon_name": "Award",
       "image_url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
     }
   ],
   "pricing_plans": [
     {
-      "name": "Day Pass / Flexible",
-      "price": "$19",
+      "name": "Day Protocol Pass",
+      "price": "$29",
       "period": "per day",
       "popular": false,
-      "description": "Perfect for travelers or occasional workouts with full access.",
+      "description": "Designed for visiting executives and athletes requiring an uncompromising training session.",
       "features": [
-        "Full Gym Floor Access",
-        "Locker Room & Showers",
-        "Free Weights & Cardio",
-        "No Contract Required"
+        "Unrestricted 24h Gym Floor Access",
+        "Eleiko Platforms & Rogue Equipment",
+        "Executive Locker & Rain Shower Suite",
+        "Post-Workout Recovery Shake Included",
+        "Zero Contract Commitment"
       ],
-      "cta_text": "Get Day Pass"
+      "cta_text": "Reserve Day Pass"
     },
     {
-      "name": "All-Access Pro",
-      "price": "$59",
+      "name": "All-Access Apex Pro",
+      "price": "$149",
       "period": "per month",
       "popular": true,
-      "description": "Our most popular membership for consistent athletic transformation.",
+      "description": "Our signature capped membership for dedicated executives seeking peak athletic transformation.",
       "features": [
-        "24/7 Keycard Facility Access",
-        "All Group Fitness Classes Included",
-        "1 Free Personal Training Session",
-        "Sauna & Recovery Lounge",
-        "Free Guest Pass Every Month"
+        "24/7 Biometric Keycard Access",
+        "Full Capped Floor Access (Zero Queueing)",
+        "Bi-Weekly Biomechanical Movement Screens",
+        "Full Infrared Sauna & Cold Plunge Access",
+        "Complimentary Guest Pass Every Month",
+        "Private Towel & Laundry Service"
       ],
-      "cta_text": "Join Pro Membership"
+      "cta_text": "Claim Pro Membership"
     },
     {
-      "name": "VIP Elite Athlete",
-      "price": "$129",
+      "name": "Private VIP Performance",
+      "price": "$380",
       "period": "per month",
       "popular": false,
-      "description": "Dedicated personalized coaching and premium recovery perks.",
+      "description": "High-touch athletic direction with dedicated master coaching and bespoke nutrition architecture.",
       "features": [
-        "Everything in Pro Membership",
-        "4 Weekly Personal Training Sessions",
-        "Custom Nutrition & Meal Planning",
-        "Priority Recovery Suite Booking",
-        "Exclusive Member Locker"
+        "All Apex Pro Privileges Included",
+        "4 Private 1-on-1 Coaching Sessions / Month",
+        "Personalized Metabolic & Nutrition Protocol",
+        "Priority Recovery Suite Reservations",
+        "Dedicated Private Locker Assignment",
+        "Direct Coach WhatsApp & Video Analysis"
       ],
-      "cta_text": "Apply For VIP"
+      "cta_text": "Apply For VIP Tier"
     }
   ],
   "gallery_images": [
@@ -114,53 +144,66 @@
   ],
   "testimonials": [
     {
-      "author": "Robert Martinez",
+      "author": "Kenji Takahashi",
+      "role": "Managing Director, Tokyo Tech Ventures",
       "rating": 5,
-      "comment": "Outstanding service from start to finish. Explained everything clearly and helped me establish a sustainable performance routine."
+      "comment": "In 12 years of training in Tokyo, I have never experienced a facility that values my time like Tokyo Apex. The 350-member cap means I never wait for an Eleiko rack, and the infrared recovery lounge has completely cured my lower back tightness."
     },
     {
-      "author": "Kenji Sato",
+      "author": "Marcus Sterling",
+      "role": "Global FinTech Executive",
       "rating": 5,
-      "comment": "Tokyo Apex Gyms is in a class of its own. The equipment quality, low-density training floor, and recovery suite make every visit exceptional."
+      "comment": "The biomechanical diagnostics uncovered rotational imbalances that regular personal trainers missed for years. Within 90 days, my deadlift increased by 25kg pain-free. Worth every yen of the VIP tier."
     },
     {
-      "author": "Elena Rostova",
+      "author": "Dr. Ayumi Morimoto",
+      "role": "Orthopedic Surgeon & Masters Athlete",
       "rating": 5,
-      "comment": "The personal coaching team redefined how I view functional training. Unmatched professionalism right in 512 Parkview Blvd."
+      "comment": "Their adherence to sports science and movement precision is unparalleled in Tokyo. The equipment selection is world-class, and the atmosphere is disciplined, calm, and intensely focused."
     }
   ],
   "faqs": [
     {
-      "question": "How quickly can I book an initial consultation or facility tour?",
-      "answer": "We offer immediate scheduling online or over the phone, with priority appointments available within 24 hours."
+      "question": "What is the reason behind the 350-member floor cap?",
+      "answer": "We refuse to operate a cattle-car gym. By strictly limiting active memberships to 350, we guarantee that whether you train at 6:00 AM or 6:30 PM, you will never wait for a squat platform, barbell, or recovery suite. Peak performance requires uninterrupted flow."
     },
     {
-      "question": "Do you provide transparent upfront pricing?",
-      "answer": "Yes, we maintain complete transparency with honest membership tiers and zero hidden fees before you sign."
+      "question": "Are your coaches certified in athletic strength & conditioning?",
+      "answer": "Yes. Every performance coach at Tokyo Apex holds accredited international credentials (CSCS, NSCA-CPT, or Olympic Weightlifting USAW/JPA equivalents) with minimum 5+ years specializing in athletic mechanics and injury prevention."
     },
     {
-      "question": "Are your fitness coaches licensed and certified?",
-      "answer": "Absolutely. Every elite coach on our team holds top international certifications and adheres to rigorous safety standards."
+      "question": "Can I tour the facility and test the equipment before committing?",
+      "answer": "Absolutely. You can reserve an Executive Day Pass or schedule a complimentary 30-minute biomechanical movement screen and facility walk-through with our head coach."
     },
     {
-      "question": "What guarantees do you offer on personal coaching?",
-      "answer": "We back our coaching with a 100% satisfaction commitment. We recalibrate your customized program until you reach your physical targets."
+      "question": "Do you enforce rigid multi-year membership contracts?",
+      "answer": "Never. All Tokyo Apex memberships operate on transparent month-to-month agreements. We retain our members through undeniable physical results and world-class service, not locked contracts."
+    },
+    {
+      "question": "How does 24/7 facility access work?",
+      "answer": "All Pro and VIP members receive encrypted biometric smartcard credentials for secure 24/7 entry. The facility is equipped with continuous high-definition security monitoring and emergency response protocols."
     }
   ],
   "business_hours": [
-    "Mon-Fri: 9:00 AM – 5:00 PM",
-    "Sat-Sun: Closed"
+    "24/7 Member Biometric Access: All Hours, 365 Days",
+    "Coaching & Concierge: Mon–Fri: 6:00 AM – 10:00 PM",
+    "Weekend Concierge: Sat–Sun: 7:00 AM – 8:00 PM"
   ],
-  "address": "512 Parkview Blvd, Tokyo",
-  "phone": "(555) 678-1234",
-  "email": "membership@tokyoapexgyms.jp",
+  "address": "512 Parkview Blvd, Minato-ku, Tokyo 106-0032",
+  "phone": "+81 3 5550 1234",
+  "email": "concierge@tokyoapexgyms.jp",
+  "cta_banner": {
+    "headline": "Ready to Train Without Compromise?",
+    "subheadline": "Limited to 350 members. Experience Tokyo's most exclusive athletic performance floor and recovery lab.",
+    "cta_text": "Claim Your Executive Pass"
+  },
   "footer": {
     "logo_url": "/logo.svg",
-    "description": "Premier luxury facility serving Tokyo Apex Gyms clientele with athletic distinction.",
+    "description": "Tokyo's premier high-performance athletic sanctuary and cellular recovery laboratory. Designed for driven high-performers.",
     "copyright": "© Tokyo Apex Gyms. All rights reserved."
   },
   "theme": {
-    "primary_color": "#0f172a",
+    "primary_color": "#090d16",
     "accent_color": "#f59e0b",
     "font_family": "Inter, sans-serif",
     "theme_mode": "dark"
