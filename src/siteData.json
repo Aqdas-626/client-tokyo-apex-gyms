@@ -1,5 +1,6 @@
 {
   "business_name": "Tokyo Apex Gyms",
+  "enable_motion": true,
   "tagline": "Elevate Your Athletic Potential in Tokyo",
   "logo_url": "/logo.svg",
   "hero_headline": "Redefine Human Performance At Tokyo’s Premier Fitness Sanctuary",

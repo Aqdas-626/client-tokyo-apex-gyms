@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import siteData from './siteData.json';
 import {
   Phone,
@@ -43,6 +44,7 @@ export default function App() {
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', notes: '' });
 
+  const enableMotion = Boolean(siteData.enable_motion);
   const primaryColor = siteData.theme?.primary_color || '#0f172a';
   const accentColor = siteData.theme?.accent_color || '#f59e0b';
   const isDark = siteData.theme?.theme_mode === 'dark';
@@ -175,7 +177,12 @@ export default function App() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left Column: Copy & Actions */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <motion.div
+              initial={enableMotion ? { opacity: 0, y: 24 } : false}
+              animate={enableMotion ? { opacity: 1, y: 0 } : false}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="lg:col-span-7 space-y-6 text-center lg:text-left"
+            >
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-700/80 text-amber-400 text-xs font-black uppercase tracking-wider shadow-sm">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{siteData.hero_badge_text || 'Top-Rated Local Professional'}</span>
@@ -232,10 +239,15 @@ export default function App() {
                   <span>100% Guaranteed</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Column: Hero Visual Container */}
-            <div className="lg:col-span-5 relative">
+            <motion.div
+              initial={enableMotion ? { opacity: 0, scale: 0.95 } : false}
+              animate={enableMotion ? { opacity: 1, scale: 1 } : false}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="lg:col-span-5 relative"
+            >
               <div className="relative mx-auto max-w-md lg:max-w-none">
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
                   {siteData.hero_image_url ? (
@@ -266,11 +278,37 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
       </section>
+
+      {/* INFINITE RUNNING MOTION TICKER */}
+      {enableMotion && (
+        <div className="py-3 bg-amber-400/10 border-y border-amber-400/20 overflow-hidden relative select-none">
+          <motion.div
+            className="flex gap-8 whitespace-nowrap text-xs sm:text-sm font-black uppercase tracking-widest text-amber-400"
+            animate={{ x: [0, -1200] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+          >
+            {[...Array(6)].map((_, i) => (
+              <span key={i} className="flex items-center gap-6">
+                <span>★ 5-Star Local Reputation</span>
+                <span className="text-slate-600">•</span>
+                <span>⚡ Rapid Priority Scheduling</span>
+                <span className="text-slate-600">•</span>
+                <span>🛡️ 100% Satisfaction Guaranteed</span>
+                <span className="text-slate-600">•</span>
+                <span>✨ Zero Hidden Fees</span>
+                <span className="text-slate-600">•</span>
+                <span>🏆 Award-Winning Standards</span>
+                <span className="text-slate-600">•</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+      )}
 
       {/* 4. METRICS & STATS BAR */}
       {siteData.stats?.length > 0 && (
@@ -278,10 +316,17 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {siteData.stats.map((st, idx) => (
-                <div key={idx} className="space-y-1">
+                <motion.div
+                  key={idx}
+                  initial={enableMotion ? { opacity: 0, y: 20 } : false}
+                  whileInView={enableMotion ? { opacity: 1, y: 0 } : false}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="space-y-1"
+                >
                   <div className="text-3xl sm:text-4xl font-black text-amber-400">{st.number}</div>
                   <div className={`text-xs sm:text-sm font-semibold tracking-wide uppercase ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{st.label}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -307,9 +352,14 @@ export default function App() {
             {siteData.services?.map((svc, idx) => {
               const IconComp = iconMap[svc.icon_name] || CheckCircle;
               return (
-                <div
+                <motion.div
                   key={idx}
-                  className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col hover:-translate-y-1.5 hover:shadow-2xl ${isDark ? 'bg-slate-900 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-md hover:border-slate-300'}`}
+                  initial={enableMotion ? { opacity: 0, y: 30 } : false}
+                  whileInView={enableMotion ? { opacity: 1, y: 0 } : false}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  whileHover={enableMotion ? { y: -8, transition: { duration: 0.2 } } : {}}
+                  className={`group rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col hover:shadow-2xl ${isDark ? 'bg-slate-900 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 shadow-md hover:border-slate-300'}`}
                 >
                   {/* Service Photo */}
                   <div className="aspect-[16/10] overflow-hidden relative bg-slate-800">
@@ -348,7 +398,7 @@ export default function App() {
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -373,8 +423,13 @@ export default function App() {
 
             <div className="grid md:grid-cols-3 gap-8 items-stretch">
               {siteData.pricing_plans.map((p, idx) => (
-                <div
+                <motion.div
                   key={idx}
+                  initial={enableMotion ? { opacity: 0, scale: 0.95 } : false}
+                  whileInView={enableMotion ? { opacity: 1, scale: 1 } : false}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  whileHover={enableMotion ? { scale: p.popular ? 1.05 : 1.02, transition: { duration: 0.2 } } : {}}
                   className={`rounded-3xl p-8 flex flex-col justify-between relative transition-all duration-300 ${p.popular ? 'border-2 border-amber-400 shadow-2xl scale-105 z-10' : 'border'} ${isDark ? (p.popular ? 'bg-slate-900' : 'bg-slate-950 border-slate-800') : (p.popular ? 'bg-white' : 'bg-white border-slate-200 shadow-md')}`}
                 >
                   {p.popular && (
@@ -412,7 +467,7 @@ export default function App() {
                       {p.cta_text || 'Get Started'}
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -437,7 +492,14 @@ export default function App() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {siteData.gallery_images.map((imgUrl, idx) => (
-                <div key={idx} className="rounded-2xl overflow-hidden aspect-square relative group bg-slate-900 shadow-md">
+                <motion.div
+                  key={idx}
+                  initial={enableMotion ? { opacity: 0, scale: 0.9 } : false}
+                  whileInView={enableMotion ? { opacity: 1, scale: 1 } : false}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="rounded-2xl overflow-hidden aspect-square relative group bg-slate-900 shadow-md"
+                >
                   <img
                     src={imgUrl}
                     alt={`Showcase ${idx + 1}`}
@@ -446,7 +508,7 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                     <span className="text-xs font-bold text-white">Verified Facility</span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -635,84 +697,97 @@ export default function App() {
       </footer>
 
       {/* 12. INTERACTIVE BOOKING MODAL */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-8 shadow-2xl relative text-white">
-            <button
-              onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800"
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div
+            initial={enableMotion ? { opacity: 0 } : false}
+            animate={enableMotion ? { opacity: 1 } : false}
+            exit={enableMotion ? { opacity: 0 } : false}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={enableMotion ? { scale: 0.9, opacity: 0, y: 20 } : false}
+              animate={enableMotion ? { scale: 1, opacity: 1, y: 0 } : false}
+              exit={enableMotion ? { scale: 0.9, opacity: 0, y: 20 } : false}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-slate-900 border border-slate-700 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-8 shadow-2xl relative text-white"
             >
-              <X className="w-5 h-5" />
-            </button>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            <div className="text-center space-y-2 mb-6">
-              <h3 className="text-2xl font-black">Schedule With Us</h3>
-              <p className="text-xs sm:text-sm text-slate-400">
-                {selectedPlanOrService ? `Selected: ${selectedPlanOrService}` : 'Leave your contact details and we will reach back promptly.'}
-              </p>
-            </div>
-
-            {contactSubmitted ? (
-              <div className="py-8 text-center space-y-3">
-                <CheckCircle className="w-14 h-14 text-emerald-400 mx-auto" />
-                <h4 className="text-xl font-bold text-white">Request Received!</h4>
-                <p className="text-sm text-slate-300">We will call or text you shortly to confirm your booking.</p>
+              <div className="text-center space-y-2 mb-6">
+                <h3 className="text-2xl font-black">Schedule With Us</h3>
+                <p className="text-xs sm:text-sm text-slate-400">
+                  {selectedPlanOrService ? `Selected: ${selectedPlanOrService}` : 'Leave your contact details and we will reach back promptly.'}
+                </p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Your Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Doe"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                  />
+
+              {contactSubmitted ? (
+                <div className="py-8 text-center space-y-3">
+                  <CheckCircle className="w-14 h-14 text-emerald-400 mx-auto" />
+                  <h4 className="text-xl font-bold text-white">Request Received!</h4>
+                  <p className="text-sm text-slate-300">We will call or text you shortly to confirm your booking.</p>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="(555) 000-0000"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Service or Package</label>
-                  <input
-                    type="text"
-                    value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    placeholder="Select or type service..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Notes / Preferences</label>
-                  <textarea
-                    rows={2}
-                    value={formData.notes}
-                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Preferred time or specific requests..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:opacity-95 shadow-xl mt-4"
-                >
-                  Submit Booking Request
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Your Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="John Doe"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Phone Number</label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="(555) 000-0000"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Service or Package</label>
+                    <input
+                      type="text"
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      placeholder="Select or type service..."
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-slate-400 mb-1">Notes / Preferences</label>
+                    <textarea
+                      rows={2}
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      placeholder="Preferred time or specific requests..."
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full py-4 rounded-xl bg-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:opacity-95 shadow-xl mt-4"
+                  >
+                    Submit Booking Request
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
